@@ -1,12 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {Alert, Button, SafeAreaView, Text, View} from 'react-native';
+import {
+  Alert,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 
 function Home({navigation}: any) {
-  const [response, Setresponse] = useState<any>();
-
   const [token, Settoken] = useState<any>();
 
   const [notesObject, SetnotesObject] = useState<{
@@ -31,8 +36,7 @@ function Home({navigation}: any) {
     SetnotesObject(prev => ({...prev, title: ''}));
     SetnotesObject(prev => ({...prev, notes: ''}));
     const result = await axiosHomePageCall.data;
-    Setresponse(result);
-    Alert.alert(response);
+    Alert.alert(result);
   };
 
   useEffect(() => {
@@ -40,12 +44,12 @@ function Home({navigation}: any) {
   }, []);
 
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <View style={{flex: 1}}>
       <View style={{flex: 9}}>
         <TextInput
           placeholder="Add Title(Max Length 25)"
           maxLength={25}
-          style={{borderBottomWidth: 2, fontWeight: 'bold', fontSize: 20}}
+          style={styles.addTitleTextInput}
           value={notesObject.title}
           onChangeText={value =>
             SetnotesObject(prev => ({...prev, title: value}))
@@ -58,17 +62,51 @@ function Home({navigation}: any) {
           onChangeText={value =>
             SetnotesObject(prev => ({...prev, notes: value}))
           }
+          style={styles.addNoteTextInput}
         />
       </View>
-
-      <Button
-        title="save"
-        onPress={() => {
-          saveButtonHandler();
-        }}
-      />
-    </SafeAreaView>
+      <View style={styles.saveButtonContainer}>
+        <TouchableOpacity
+          onPress={() => {
+            saveButtonHandler();
+          }}
+          style={styles.saveButton}>
+          <Text style={styles.buttonText}>save</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  saveButton: {
+    borderWidth: 1,
+    width: 100,
+    height: 40,
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'white',
+    backgroundColor: '#e6c510',
+  },
+  saveButtonContainer: {
+    flex: 1,
+    backgroundColor: '#f0e38d',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  addNoteTextInput: {
+    backgroundColor: '#f7f1cb',
+    height: '100%',
+    width: '100%',
+  },
+  addTitleTextInput: {
+    borderBottomWidth: 2,
+    fontWeight: 'bold',
+    fontSize: 20,
+    backgroundColor: '#f7f1cb',
+  },
+  buttonText: {fontSize: 25, color: 'white'},
+});
 
 export default Home;

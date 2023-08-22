@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 
 function Profile() {
   const [profile, Setprofile] = useState<any>([]);
@@ -20,12 +20,26 @@ function Profile() {
     getToken();
   }, []);
   return (
-    <SafeAreaView>
-      <Text>Profile</Text>
-      <Text>First Name: {profile.firstName}</Text>
-      <Text>Last Name: {profile.lastName}</Text>
+    <SafeAreaView style={styles.mainContainer}>
+      <View style={styles.detailsContainer}>
+        <Text>User Details</Text>
+        <Text>First Name: {profile.firstName}</Text>
+        <Text>Last Name: {profile.lastName}</Text>
+      </View>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  mainContainer: {flex: 1, backgroundColor: '#f0e38d'},
+  detailsContainer: {
+    borderWidth: 1,
+    margin: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f7f1cb',
+  },
+});
 
 export default Profile;

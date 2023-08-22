@@ -3,34 +3,42 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {NavigationContainer} from '@react-navigation/native';
 import Register from './Register';
 import Login from './Login';
-import Home from './Home';
 import DrawerNavigation from './DrawerNavigation';
-import Viewnotes from './Viewnotes';
+import Note from './Note';
 
 function Navigation() {
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Register"
-          component={Register}
-          options={{title: 'demo-app'}}
-        />
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: {backgroundColor: '#e6c510'},
+          headerTintColor: 'white',
+          headerTitleStyle: {fontWeight: 'bold', fontSize: 25},
+        }}>
         <Stack.Screen
           name="Login"
           component={Login}
-          options={{title: 'demo-app'}}
+          options={{
+            title: 'Login',
+          }}
+        />
+        <Stack.Screen
+          name="Register"
+          component={Register}
+          options={{
+            title: 'Register',
+          }}
         />
         <Stack.Screen
           name="DrawerNavigation"
           component={DrawerNavigation}
-          options={{title: 'demo-app'}}
+          options={{title: 'demo-app', headerShown: false}}
         />
         <Stack.Screen
-          name="Viewnotes"
-          component={Viewnotes}
-          options={{title: 'demo-app'}}
+          name="Note"
+          options={({route}: any) => ({title: route.params.title})}
+          component={Note}
         />
       </Stack.Navigator>
     </NavigationContainer>
