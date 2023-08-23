@@ -1,5 +1,5 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {ScrollView, Text} from 'react-native';
 
 function Note({navigation, route}: any) {
   return (

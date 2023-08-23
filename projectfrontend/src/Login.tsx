@@ -37,6 +37,8 @@ function Login({navigation}: any) {
       //console.log(res.data.token);
       await AsyncStorage.setItem('token', res.data.token);
       await AsyncStorage.setItem('email', email);
+      Setemail('');
+      Setpassword('');
       navigation.navigate('DrawerNavigation');
     }
   };
@@ -55,6 +57,7 @@ function Login({navigation}: any) {
           onChangeText={Setemail}
           autoCorrect={false}
           style={styles.textInput}
+          value={email}
         />
         <View style={styles.passwordContainer}>
           <View style={{width: '90%'}}>
@@ -64,6 +67,7 @@ function Login({navigation}: any) {
               onChangeText={Setpassword}
               autoCorrect={false}
               secureTextEntry={securePassword}
+              value={password}
             />
           </View>
           <View>
